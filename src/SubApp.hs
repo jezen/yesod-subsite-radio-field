@@ -65,7 +65,7 @@ instance PathPiece Foo where
     "baz" -> Just Baz
     _ -> Nothing
 
-fooForm :: YesodSubApp m => Html -> MForm (HandlerFor m) (FormResult Foo, WidgetFor m ())
+fooForm :: YesodSubApp m => Html -> MForm (SubHandlerFor SubApp m) (FormResult Foo, WidgetFor m ())
 fooForm extra = do
   foo <-
     let opts = mkOptionList (toOpt <$> [ Foo, Bar, Baz ])
@@ -86,7 +86,7 @@ fooForm extra = do
 
 getFooR :: YesodSubApp m => SubHandlerFor SubApp m Html
 getFooR = do
-  ((_, form), enctype) <- liftHandler $ runFormPost fooForm
+  ((_, form), enctype) <- runFormPost fooForm
   liftHandler $ defaultLayout [whamlet|
     $newline never
     <form enctype=#{enctype} method=post>
@@ -97,6 +97,6 @@ getFooR = do
 postFooR :: YesodSubApp m => SubHandlerFor SubApp m Html
 postFooR = do
   toParent <- getRouteToParent
-  ((result, _), _) <- liftHandler $ runFormPost fooForm
+  ((result, _), _) <- runFormPost fooForm
   print result
   redirect $ toParent FooR
