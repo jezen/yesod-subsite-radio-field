@@ -1,0 +1,79 @@
+cabal-version: 2.2
+name:          yesod-subsite-radio-field
+version:       0.1.0
+build-type:    Simple
+
+library
+  exposed-modules:
+    SubApp
+    SubData
+
+  hs-source-dirs:     src
+  default-extensions:
+    ImportQualifiedPost
+    NoImplicitPrelude
+
+  build-depends:
+    , classy-prelude-yesod
+
+  ghc-options:
+    -Wall -Werror -fwarn-tabs -Wincomplete-uni-patterns
+    -Wincomplete-record-updates -Widentities -Wredundant-constraints
+    -Wcpp-undef -Wimplicit-prelude -Wno-type-defaults -Wunused-packages
+    -O2
+
+  default-language:   Haskell2010
+
+library yesod-subsite-radio-field-example
+  exposed-modules:
+    Dev
+    ExampleApp
+
+  hs-source-dirs:     example
+  default-extensions:
+    ImportQualifiedPost
+    NoImplicitPrelude
+
+  build-depends:
+    , base
+    , classy-prelude
+    , classy-prelude-yesod
+    , foreign-store
+    , yesod-subsite-radio-field
+    , warp
+
+  ghc-options:
+    -Wall -Werror -fwarn-tabs -Wincomplete-uni-patterns
+    -Wincomplete-record-updates -Widentities -Wredundant-constraints
+    -Wcpp-undef -Wimplicit-prelude -Wno-type-defaults -Wunused-packages
+
+  default-language:   Haskell2010
+
+test-suite test
+  type:               exitcode-stdio-1.0
+  main-is:            Spec.hs
+  hs-source-dirs:     test
+  ghc-options:
+    -Wall -freverse-errors -threaded -rtsopts -with-rtsopts=-N
+    -Wunused-packages -Werror -fwarn-tabs -Wincomplete-uni-patterns
+
+  default-extensions:
+    ImportQualifiedPost
+    NoImplicitPrelude
+
+  build-depends:
+    , classy-prelude                   >=0.10.2
+    , fakedata                         >=1.0
+    , fast-logger
+    , hspec                            >=2.7.10
+    , yesod-subsite-radio-field
+    , yesod-subsite-radio-field-example
+    , yesod
+    , yesod-core                       >=1.6.20.2
+    , yesod-test
+
+  other-modules:
+    SubAppSpec
+    TestImport
+
+  default-language:   Haskell2010

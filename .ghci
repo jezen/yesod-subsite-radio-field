@@ -1,0 +1,41 @@
+:set -i./src
+:set -i./test
+:set -i./example
+:set -DDEVELOPMENT
+:set -outputdir .build-cache
+:set +s
+:set +t
+:set -fwrite-ide-info
+:set -hiedir=.hie
+:set -Wall
+:set -Wincomplete-uni-patterns
+:set -Wincomplete-record-updates
+:set -Widentities
+:set -Wredundant-constraints
+:set -Wcpp-undef
+:set -Wimplicit-prelude
+:set -Wno-type-defaults
+:set -XNoImplicitPrelude
+:set -Werror=incomplete-patterns
+:set -Werror=missing-fields
+
+:m -Prelude
+:m +ClassyPrelude
+
+-- Run a local development server
+:{
+:def! serve \_args -> pure . unlines $
+  [ ":!clear"
+  , ":l ./example/Dev"
+  , "Dev.update"
+  ]
+:}
+
+-- Run the tests
+:{
+:def! test \args -> pure . unlines $
+  [ ":!clear"
+  , ":l ./test/Spec.hs"
+  , "main " <> args
+  ]
+:}

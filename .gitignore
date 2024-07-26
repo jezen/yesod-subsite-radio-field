@@ -1,0 +1,8 @@
+result
+.build-cache
+.hie
+*.aes
+dist-newstyle
+.envrc
+*.sqlite3*
+.DS_Store
