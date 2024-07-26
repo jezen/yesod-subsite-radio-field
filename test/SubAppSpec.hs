@@ -4,6 +4,11 @@ module SubAppSpec where
 
 import TestImport
 
+-- This is a function I wish existed. Obviously, the value should come from the
+-- input associated with the label, and not be hard-coded like we have here.
+choose :: Text -> RequestBuilder site ()
+choose label = byLabelExact label "foo"
+
 spec :: Spec
 spec = withApp $ do
 
@@ -13,5 +18,5 @@ spec = withApp $ do
       addToken
       setMethod "POST"
       setUrl $ SubR FooR
-      byLabelExact "Foo" "foo"
+      choose "Foo"
     statusIs 303
